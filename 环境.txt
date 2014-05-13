@@ -1,0 +1,94 @@
+yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel
+
+
+此时只需要在终端中打开环境变量文件 vi /etc/profile，（保存命令按ESC，然后输入“:w”即可保存，然后”:q”退出vi）填写相应的目录即可：
+
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.55.x86_64
+
+export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+
+export PATH=$PATH:$JAVA_HOME/bin
+
+这样我们就设置好了JDK，在输入source /etc/profile 就可以生效了.
+
+
+
+
+
+
+
+安装Tomcat6相关软件包：
+# yum -y install tomcat6 tomcat6-webapps tomcat6-admin-webapps tomcat6-docs-webapp tomcat6-javadoc
+
+
+设置tomcat开机启动：
+chkconfig tomcat6 on
+
+4、开放8080端口：
+/sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+/etc/rc.d/init.d/iptables save
+/etc/init.d/iptables restart
+
+5、站点根目录及配置文件位置：
+/usr/share/tomcat6/webapps/ROOT
+/etc/tomcat6
+
+6、测试：
+http://localhost:8080
+
+
+
+
+
+防火墙开放8080端口
+增加8080端口到防火墙配置中，执行以下操作：
+
+[root@admin ~]# vi + /etc/sysconfig/iptables
+#增加以下代码 
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -j ACCEPT
+重启防火墙
+
+[root@admin java]# service iptables restart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Icarus answered a very similar question for me. Its not using "yum", but should still work for your purposes. Try,
+
+wget http://mirror.olnevhost.net/pub/apache/maven/maven-3/3.2.1/binaries/apache-maven-3.2.1-bin.tar.gz
+basically just go to the maven site. Find the version of maven you want. The file type and use the mirror for the wget statement above.
+
+Afterwards the process is easy
+
+Run the wget command from the dir you want to extract maven too.
+run the following to extract the tar,
+
+tar -xzvf apache-maven-3.2.1-bin.tar.gz
+move maven to /usr/local/apache-maven
+
+mv apache-maven-3.2.1  /usr/local/apache-maven
+Next add the env variables to your ~/.bashrc file
+
+export M2_HOME=/usr/local/apache-maven
+export M2=$M2_HOME/bin
+export PATH=$M2:$PATH
+
+Verify everything is working with the following command
+
+mvn -version
+
+
+
+mvn install:install-file -Dfile=/root/github/newsmth-mvn/src/main/webapp/WEB-INF/lib/paoding-analysis-2.0.4.jar -DgroupId=net.paoding -DartifactId=paoding-analysis -Dversion=2.0.4 -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
+
+

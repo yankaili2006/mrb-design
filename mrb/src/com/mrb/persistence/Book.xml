@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="Book">
+
+	<select id="getBookByTypeList" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.Book2ShowBean">
+		select b.id, b.uuid, b.title, b.name, b.format, b.typeId, t.name as
+		typeName, b.createUserId, u.userName as userName,
+		b.summary,b.path,b.length from book b,type t,user u where
+		b.typeId=t.id and b.createUserId=u.id and t.code=#bookCode#
+	</select>
+	
+	<!-- 一级分类 -->
+	<select id="getBookByFirstTypeList" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.Book2ShowBean">
+		select b.id, b.uuid, b.title, b.name, b.format, b.typeId, t.name as
+		typeName, b.createUserId, u.userName as userName,
+		b.summary,b.path,b.length from book b,type t,user u where
+		b.typeId=t.id and b.createUserId=u.id and SUBSTRING(t.code,1,5)=#bookCode#
+	</select>
+	
+
+	<select id="getBookByTypeCount" resultClass="java.lang.Integer">
+		select count(*) from book b,type t,user u where b.typeId=t.id
+		and b.createUserId=u.id and t.code=#bookCode#
+	</select>
+	
+	
+	<!-- 一级分类 -->
+	<select id="getBookByFirstTypeCount" resultClass="java.lang.Integer">
+		select count(*) from book b,type t,user u where b.typeId=t.id
+		and b.createUserId=u.id and SUBSTRING(t.code,1,5)=#bookCode#
+	</select>
+	
+
+	<!-- 所有分类 -->
+	<select id="getBookPageByType" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.Book2ShowBean">
+		select b.id, b.uuid, b.title, b.name, b.format, b.typeId, t.name
+		as typeName, b.createUserId, u.userName as userName,
+		b.summary,b.path,b.length from book b,type t,user u where
+		b.typeId=t.id and b.createUserId=u.id and t.code=#bookCode#
+	</select>
+
+	<!-- 一级分类 -->
+	<select id="getBookPageByFirstType" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.Book2ShowBean">
+		select b.id, b.uuid, b.title, b.name, b.format, b.typeId, t.name
+		as typeName, b.createUserId, u.userName as userName,
+		b.summary,b.path,b.length from book b,type t,user u where
+		b.typeId=t.id and b.createUserId=u.id and SUBSTRING(t.code,1,5)=#bookCode#
+	</select>
+
+	<!-- 根据Uuid，获取文档 -->
+	<select id="getBookByUuid" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.Book2ShowBean">
+		select b.id, b.uuid, b.title, b.name, b.format, b.typeId, t.name as
+		typeName, b.createUserId, u.userName as userName,
+		b.summary,b.path,b.length from book b,type t,user u where
+		b.typeId=t.id and b.createUserId=u.id and b.uuid=#uuid#
+	</select>
+
+	<!-- 搜索列表，关键字 -->
+	<select id="getBookListBySearch" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.Book2ShowBean">
+		select b.id, b.uuid, b.title, b.name, b.format, b.typeId, t.name as
+		typeName, b.createUserId, u.userName as userName,
+		b.summary,b.path,b.length from book b,type t,user u where
+		b.typeId=t.id and b.createUserId=u.id and b.name like
+		CONCAT('%', #key#, '%')
+	</select>
+
+	<!-- 搜索列表 关键字和文档类型 -->
+	<select id="getBookListBySearchType"
+		parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.Book2ShowBean">
+		select b.id, b.uuid, b.title, b.name, b.format, b.typeId, t.name as
+		typeName, b.createUserId, u.userName as userName,
+		b.summary,b.path,b.length from book b,type t,user u
+
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="format">
+				b.format=#format#
+			</isNotNull>
+			<isNotNull prepend="AND" property="key">
+				b.typeId=t.id and b.createUserId=u.id and b.name like '%$key$%'
+			</isNotNull>
+		</dynamic>
+
+	</select>
+
+	<!-- 搜索的个数，关键字和文档类型 -->
+	<select id="getBookListBySearchTypeCount"
+		parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+		select count(*) from book b,type t,user u
+
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="format">
+				b.format=#format#
+			</isNotNull>
+			<isNotNull prepend="AND" property="key">
+				b.typeId=t.id and b.createUserId=u.id and b.name like '%$key$%'
+			</isNotNull>
+		</dynamic>
+
+	</select>
+	
+	<!-- 搜索分页，关键字和文件类型 -->
+	<select id="getBookPageBySearchType"
+		parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.Book2ShowBean">
+		select b.id, b.uuid, b.title, b.name, b.format, b.typeId, t.name as
+		typeName, b.createUserId, u.userName as userName,
+		b.summary,b.path,b.length from book b,type t,user u
+
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="format">
+				b.format=#format#
+			</isNotNull>
+			<isNotNull prepend="AND" property="key">
+				b.typeId=t.id and b.createUserId=u.id and b.name like '%$key$%'
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<!-- 根据一级分类，获取各自的个数 -->
+	<select id="getTypeSumFirstList" resultClass="com.mrb.bean.TypeSumBean">
+		select id, code, name,count from v_first_type_sum order by count desc
+	</select>
+	
+	<!-- 获取所有的分类个数 -->
+	<select id="getTypeSumList" parameterClass="java.lang.String" resultClass="com.mrb.bean.TypeSumBean">
+		select id, code, name,count from v_type_sum where SUBSTRING(code,1,5)=#firstTypeCode# order by count desc
+	</select>
+
+</sqlMap>

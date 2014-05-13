@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="user">
+	<insert id="addUser" parameterClass="com.mrb.bean.UserBean">
+		insert into tbuser
+		values(#uid#,#uname#,#phone#,#pwd#,#type#,#status#,#date#,#opdate#,#operid#)
+	</insert>
+
+	<select id="getUserById" parameterClass="java.lang.Long"
+		resultClass="com.mrb.bean.UserBean">
+		select * from tbuser where uid = #id#
+	</select>
+
+	<select id="getUserList" resultClass="com.mrb.bean.UserBean">
+		select * from tbuser order by date desc
+	</select>
+
+	<update id="updateUser" parameterClass="com.mrb.bean.UserBean">
+		update tbuser set opdate=#opdate#
+		<isNotEmpty prepend="," property="pwd">pwd=#pwd#</isNotEmpty>
+		<isNotEmpty prepend="," property="phone">phone=#phone#</isNotEmpty>
+		<isNotEmpty prepend="," property="uname">uname=#uname#</isNotEmpty>
+		where uid=#uid#
+	</update>
+
+</sqlMap>

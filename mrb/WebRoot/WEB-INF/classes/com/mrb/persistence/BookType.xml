@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="BookType">
+
+	<!-- 给定code 获取这个ID -->
+	<select id="getIdWithFullCode" parameterClass="java.lang.String"
+		resultClass="java.lang.Integer">
+		select id from type where code=#code#
+	</select>
+
+	<!-- 给定code 获取这个Name -->
+	<select id="getNameWithFullCode" parameterClass="java.lang.String"
+		resultClass="java.lang.String">
+		select name from type where code=#code#
+	</select>	
+
+	<!-- 获取一级分类列表 -->
+	<select id="getTypeFirstList"
+		resultClass="com.mrb.bean.BookType2ShowBean">
+		select id, SUBSTRING(code,1,5) as code, name from type where
+		SUBSTRING(code,6,5)='00000' order by SUBSTRING(code,6,5)
+	</select>
+
+	<!-- 获取二级分类列表 -->
+	<select id="getTypeSecondList"
+		resultClass="com.mrb.bean.BookType2ShowBean">
+		select id, code, name from type where
+		SUBSTRING(code,6,5)!='00000' order by type
+	</select>
+
+	<!-- 根据一级分类名字获取二级分类列表 -->
+	<select id="getSecondBookTypeByFirst"
+		resultClass="com.mrb.bean.BookType2ShowBean">
+		select id, code, name from type where
+		SUBSTRING(code,6,5)!='00000' and SUBSTRING(code,1,5)=#firstCode#
+		order by code
+	</select>
+
+	<!-- 根据分类名称，查询一级分类是否存在。 -->
+	<select id="getFirstBookTypeCountByName"
+		parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select count(*) from type where name=#typeName# and
+		SUBSTRING(code,6,5)='00000'
+	</select>
+
+	<!-- 根据分类名称，查询二级分类是否存在。 -->
+	<select id="getSecondBookTypeCountByFirstCodeSecondName"
+		parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+		select count(*) from type where name=#typeName# and
+		SUBSTRING(code,1,5)=#firstTypeCode#
+	</select>
+
+
+	<!-- 获取一级分类中的最大值 -->
+	<select id="getFirstBookTypeMax" resultClass="java.lang.String">
+		select distinct max(SUBSTRING(code,1,5)) from type where
+		SUBSTRING(code,6,5)='00000'
+	</select>
+
+	<!--给定一级分类，获取二级分类中的最大值 -->
+	<select id="getSecondBookTypeMaxByFirstCode"
+		resultClass="java.lang.String">
+		select distinct max(SUBSTRING(code,6,5)) from type where
+		SUBSTRING(code,1,5)=#firstTypeCode# and
+		SUBSTRING(code,6,5)!='00000'
+	</select>
+
+	<!-- 给定名称，获取一级分类的code -->
+	<select id="getFirstBookTypeCodeByName"
+		parameterClass="java.lang.String" resultClass="java.lang.String">
+		select SUBSTRING(code,1,5) from type where name=#typeName# and
+		SUBSTRING(code,6,5)='00000'
+	</select>
+
+	<!--给定名称，获取二级分类的code -->
+	<select id="getSecondBookTypeByFirstCodeSecondName"
+		parameterClass="java.util.HashMap" resultClass="java.lang.String">
+		select SUBSTRING(code,6,5) from type where name=#typeName# and
+		SUBSTRING(code,1,5)=#typeCode#
+	</select>
+
+</sqlMap>

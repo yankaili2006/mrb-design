@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMapConfig>
+	<properties resource="com/mrb/config/ibatis.properties" />
+
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="true" maxRequests="32" maxSessions="10"
+		maxTransactions="5" useStatementNamespaces="false" />
+
+	<typeAlias alias="order" type="testdomain.Order" />
+
+	<transactionManager type="JDBC">
+		<dataSource type="SIMPLE">
+
+			<property name="JDBC.Driver" value="${JDBC.Driver}" />
+			<property name="JDBC.ConnectionURL"
+				value="${JDBC.ConnectionURL}" />
+			<property name="JDBC.Username" value="${JDBC.Username}" />
+			<property name="JDBC.Password" value="${JDBC.Password}" />
+
+			<property name="JDBC.DefaultAutoCommit" value="true" />
+			<property name="Pool.MaximumActiveConnections" value="10" />
+			<property name="Pool.MaximumIdleConnections" value="5" />
+			<property name="Pool.MaximumCheckoutTime" value="120000" />
+			<property name="Pool.TimeToWait" value="500" />
+			<property name="Pool.PingQuery"
+				value="select 1 from ACCOUNT" />
+			<property name="Pool.PingEnabled" value="false" />
+			<property name="Pool.PingConnectionsOlderThan" value="1" />
+			<property name="Pool.PingConnectionsNotUsedFor" value="1" />
+
+		</dataSource>
+	</transactionManager>
+
+	<sqlMap resource="com/mrb/persistence/Search.xml" />
+	<sqlMap resource="com/mrb/persistence/User.xml" />
+	<sqlMap resource="com/mrb/persistence/Book.xml" />
+	<sqlMap resource="com/mrb/persistence/BookType.xml" />
+
+</sqlMapConfig>

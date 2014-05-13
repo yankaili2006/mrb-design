@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<data-sources />
+
+	<form-beans>
+		<form-bean name="regForm"
+			type="com.mrb.form.RegisterForm" />
+	</form-beans>
+	<global-exceptions />
+	<global-forwards />
+
+	<action-mappings>
+		<!--  Register -->
+		<action path="/user/register"
+			type="com.mrb.action.RegisterAction" scope="request"
+			validate="false">
+			<forward name="failure" path="/index.jsp" />
+			<forward name="success" path="/index.jsp" />
+		</action>
+
+
+		<action path="/index" type="com.mrb.action.IndexAction">
+			<forward name="index" path="/index.jsp" />
+		</action>
+		
+		<!-- request book -->
+		<action path="/book" type="com.mrb.action.BookAction"
+			scope="request" validate="false">
+			<forward name="success" path="/book.jsp" />
+		</action>
+
+
+		<action path="/bookType"
+			type="com.mrb.action.BookTypeAction">
+			<forward name="show" path="/bookList.jsp" />
+		</action>
+
+
+		<action path="/getSecondBookTypeByFirst"
+			type="com.mrb.action.BookTypeAjaxAction">
+		</action>
+
+
+		<!-- search -->
+		<action path="/search"
+			type="com.mrb.action.SearchAction">
+			<forward name="success" path="/bookList.jsp" />
+		</action>
+
+
+		<!-- download -->
+		<action path="/download"
+			type="com.mrb.action.DownloadAction">
+		</action>
+
+		<!-- swf -->
+		<action path="/swf" type="com.mrb.action.SWFLoadAction">
+		</action>
+
+	</action-mappings>
+
+	<message-resources parameter="com.mrb.ApplicationResources" />
+
+</struts-config>
+

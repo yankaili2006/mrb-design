@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowViewLayout Version="1.2">
+  <StrutsActivity path="/user/register.do" location="950,50" dimension="258,104" />
+  <StrutsActivity path="/index.do" location="650,250" dimension="203,104" />
+  <StrutsActivity path="/book.do" location="0,604" dimension="241,104" />
+  <StrutsActivity path="/bookType.do" location="0,0" dimension="269,104" />
+  <StrutsActivity path="/getSecondBookTypeByFirst.do" location="286,604" dimension="293,104" />
+  <StrutsActivity path="/search.do" location="369,0" dimension="249,104" />
+  <StrutsActivity path="/download.do" location="624,604" dimension="269,104" />
+  <StrutsActivity path="/swf.do" location="0,906" dimension="264,104" />
+  <StrutsActivity path="/index.jsp" location="523,506" dimension="88,53" />
+  <StrutsActivity path="/book.jsp" location="76,808" dimension="88,53" />
+  <StrutsActivity path="/bookList.jsp" location="260,204" dimension="107,53" />
+  <StrutsActivity path="/messageSuccess.jsp" location="0,506" dimension="154,53" />
+  <StrutsActivity path="/messageFailure.jsp" location="254,506" dimension="147,53" />
+  <StrutsTransition id="/book.do,success,/book.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="120,708" />
+      <AbsolutePoint location="120,808" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/search.do,success,/bookList.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="493,104" />
+      <AbsolutePoint location="493,154" />
+      <AbsolutePoint location="340,154" />
+      <AbsolutePoint location="340,204" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/index.do,index,/index.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="0,0" />
+      <AbsolutePoint location="567,532" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/user/register.do,failure,/index.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="950,119" />
+      <AbsolutePoint location="567,119" />
+      <AbsolutePoint location="567,506" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/bookType.do,show,/bookList.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="134,104" />
+      <AbsolutePoint location="134,154" />
+      <AbsolutePoint location="287,154" />
+      <AbsolutePoint location="287,204" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/user/register.do,success,/index.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1079,154" />
+      <AbsolutePoint location="1079,532" />
+      <AbsolutePoint location="611,532" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+</FlowViewLayout>
+
