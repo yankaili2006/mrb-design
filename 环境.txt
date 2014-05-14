@@ -1,7 +1,7 @@
 yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel
 
 
-此时只需要在终端中打开环境变量文件 vi /etc/profile，（保存命令按ESC，然后输入“:w”即可保存，然后”:q”退出vi）填写相应的目录即可：
+锟斤拷时只锟斤拷要锟斤拷锟秸讹拷锟叫打开伙拷锟斤拷锟斤拷锟斤拷锟侥硷拷 vi /etc/profile锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟筋按ESC锟斤拷然锟斤拷锟斤拷锟诫“:w锟斤拷锟斤拷锟缴憋拷锟芥，然锟斤拷锟斤拷:q锟斤拷锟剿筹拷vi锟斤拷锟斤拷写锟斤拷应锟斤拷目录锟斤拷锟缴ｏ拷
 
 export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.55.x86_64
 
@@ -9,7 +9,7 @@ export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/li
 
 export PATH=$PATH:$JAVA_HOME/bin
 
-这样我们就设置好了JDK，在输入source /etc/profile 就可以生效了.
+锟斤拷锟斤拷锟斤拷锟角撅拷锟斤拷锟矫猴拷锟斤拷JDK锟斤拷锟斤拷锟斤拷锟斤拷source /etc/profile 锟酵匡拷锟斤拷锟斤拷效锟斤拷.
 
 
 
@@ -17,36 +17,36 @@ export PATH=$PATH:$JAVA_HOME/bin
 
 
 
-安装Tomcat6相关软件包：
+锟斤拷装Tomcat6锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 # yum -y install tomcat6 tomcat6-webapps tomcat6-admin-webapps tomcat6-docs-webapp tomcat6-javadoc
 
 
-设置tomcat开机启动：
+锟斤拷锟斤拷tomcat锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 chkconfig tomcat6 on
 
-4、开放8080端口：
+4锟斤拷锟斤拷锟斤拷8080锟剿口ｏ拷
 /sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
 /etc/rc.d/init.d/iptables save
 /etc/init.d/iptables restart
 
-5、站点根目录及配置文件位置：
+5锟斤拷站锟斤拷锟斤拷目录锟斤拷锟斤拷锟斤拷锟侥硷拷位锟矫ｏ拷
 /usr/share/tomcat6/webapps/ROOT
 /etc/tomcat6
 
-6、测试：
+6锟斤拷锟斤拷锟皆ｏ拷
 http://localhost:8080
 
 
 
 
 
-防火墙开放8080端口
-增加8080端口到防火墙配置中，执行以下操作：
+锟斤拷锟斤拷墙锟斤拷锟斤拷8080锟剿匡拷
+锟斤拷锟斤拷8080锟剿口碉拷锟斤拷锟斤拷墙锟斤拷锟斤拷锟叫ｏ拷执锟斤拷锟斤拷锟铰诧拷锟斤拷锟斤拷
 
 [root@admin ~]# vi + /etc/sysconfig/iptables
-#增加以下代码 
+#锟斤拷锟斤拷锟斤拷锟铰达拷锟斤拷 
 -A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -j ACCEPT
-重启防火墙
+锟斤拷锟斤拷锟斤拷锟斤拷墙
 
 [root@admin java]# service iptables restart
 
@@ -92,3 +92,6 @@ mvn -version
 mvn install:install-file -Dfile=/root/github/newsmth-mvn/src/main/webapp/WEB-INF/lib/paoding-analysis-2.0.4.jar -DgroupId=net.paoding -DartifactId=paoding-analysis -Dversion=2.0.4 -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
 
 
+http://console.smvp.cn/login
+meirenbangapp@163.com
+meirenbang
